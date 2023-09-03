@@ -926,11 +926,12 @@ if test "${with_crypto_library}" = "openssl"; then
 	    AC_COMPILE_IFELSE(
 				    [AC_LANG_PROGRAM(
 					    [[
+	    #include <openssl/opensslconf.h>
 	    #include <openssl/opensslv.h>
 					    ]],
 					    [[
 	    /*	     Version encoding: MNNFFPPS - see opensslv.h for details */
-	    #if OPENSSL_VERSION_NUMBER >= 0x30000000L
+	    #if OPENSSL_VERSION_NUMBER >= 0x30000000L || defined(OPENSSL_NO_ENGINE)
 	    #error Engine supported disabled by default in OpenSSL 3.0+
 	    #endif
 					    ]]
